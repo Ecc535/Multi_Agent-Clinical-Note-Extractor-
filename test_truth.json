@@ -1,0 +1,30 @@
+{
+    "55555_Note_1": {
+        "note_id": "55555_Note_1",
+        "type": "Admission",
+        "extracted_entities": {
+            "diagnosis": ["COPD exacerbation", "Pneumonia", "Hypoxia"],
+            "medications": ["Solu-Medrol", "Levofloxacin", "Albuterol", "Lisinopril"],
+            "symptoms": ["Shortness of breath", "Cough", "Green sputum"]
+        }
+    },
+    "55555_Note_2": {
+        "note_id": "55555_Note_2",
+        "type": "Radiology",
+        "extracted_entities": {
+            "diagnosis": ["Cavitary lesions", "Pleural effusion", "Suspected Tuberculosis"],
+            "procedures": ["Chest CT"],
+            "referrals": ["ID Consult"]
+        }
+    },
+    "55555_Note_3": {
+        "note_id": "55555_Note_3",
+        "type": "Discharge",
+        "extracted_entities": {
+            "diagnosis": ["COPD", "Pneumonia"],
+            "procedures": ["Thoracentesis"],
+            "medications": ["Prednisone", "Levaquin", "Albuterol"],
+            "outcome": ["TB Ruled out", "Stable on room air"]
+        }
+    }
+}

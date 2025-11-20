@@ -1,0 +1,94 @@
+openapi: 3.0.1
+info:
+  title: Clinical Note Evaluation API
+  description: >-
+    An API for evaluating the accuracy of extracted clinical information from a note
+    by comparing it against a ground truth dataset.
+  version: 1.0.0
+
+servers:
+  - url: https://your-evaluation-api-endpoint.com
+    description: Development or Production server for the Evaluation API.
+
+paths:
+  /evaluate:
+    post:
+      summary: Evaluate Clinical Note Extraction
+      description: >-
+        Takes the extracted data (prediction) from a clinical note and compares it
+        against the ground truth to calculate an accuracy score and provide feedback.
+      operationId: evaluateExtraction
+      requestBody:
+        description: The prediction, ground truth, and note identifier.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EvaluationRequest'
+      responses:
+        '200':
+          description: Evaluation completed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EvaluationResponse'
+        '400':
+          description: Bad Request - Invalid input provided.
+        '500':
+          description: Internal Server Error.
+
+components:
+  schemas:
+    # ----------------------------------------------------
+    #  REQUEST MODELS
+    # ----------------------------------------------------
+    EvaluationRequest:
+      type: object
+      required:
+        - note_id
+        - prediction
+        - ground_truth
+      properties:
+        note_id:
+          type: string
+          description: The unique identifier for the clinical note.
+          example: "note-12345"
+        prediction:
+          type: object
+          description: The structured data extracted by the agent. The structure is flexible.
+          example:
+            note_id: "note-12345"
+            extracted_entities: {"symptom": "headache"}
+            timestamp: "2023-10-27T10:00:00Z"
+        ground_truth:
+          type: object
+          description: The ground truth data for comparison. The structure should align with the prediction for accurate evaluation.
+          example:
+            note_id: "note-12345"
+            clinical_entities: ["headache", "fever"]
+
+    # ----------------------------------------------------
+    #  RESPONSE MODELS
+    # ----------------------------------------------------
+    EvaluationResponse:
+      type: object
+      required:
+        - accuracy
+      properties:
+        accuracy:
+          type: number
+          format: float
+          description: A score from 0.0 to 1.0 indicating the accuracy of the prediction.
+          example: 0.85
+        errors:
+          type: array
+          items:
+            type: string
+          description: A list of errors or discrepancies found during evaluation.
+          example: ["Missed entity: fever"]
+        improvement_suggestions:
+          type: array
+          items:
+            type: string
+          description: Suggestions for the agent to improve its next extraction attempt.
+          example: ["Re-examine the 'Patient History' section for additional symptoms."]

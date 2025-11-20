@@ -1,0 +1,19 @@
+"ROW_ID","SUBJECT_ID","HADM_ID","CHARTDATE","CHARTTIME","STORETIME","CATEGORY","DESCRIPTION","CGID","ISERROR","TEXT"
+1,55555,10001,2151-07-16,,,"Admission Note","Report",,,"Admission Date: [**2151-7-16**] Service: MICU
+HISTORY OF PRESENT ILLNESS: 55yo male with history of COPD presents with 3 days of worsening shortness of breath. Home O2 saturation 88%. Productive cough with green sputum.
+MEDICATIONS ON ADMISSION: Albuterol Inhaler, Lisinopril.
+PLAN: Admit to MICU. Start IV Steroids (Solu-Medrol). Start Levofloxacin for suspected pneumonia. Monitor O2."
+2,55555,10001,2151-07-20,,,"Radiology Report","Report",,,"Date: [**2151-7-20**]
+RADIOLOGIC STUDIES: Chest CT performed.
+FINDINGS: Bilateral upper lobe cavitary lesions observed.
+IMPRESSION: Findings concerning for infectious process, rule out Tuberculosis (TB). Moderate left pleural effusion also noted.
+RECOMMENDATION: ID Consult and Sputum cultures."
+3,55555,10001,2151-08-04,,,"Discharge Summary","Report",,,"Admission Date: [**2151-7-16**] Discharge Date: [**2151-8-4**]
+HOSPITAL COURSE: Patient treated for severe COPD exacerbation and pneumonia.
+TB WORKUP: Sputum smears negative x3. TB ruled out.
+PROCEDURES: Thoracentesis performed on left pleural effusion, fluid analysis benign.
+DISCHARGE MEDICATIONS:
+1. Prednisone taper.
+2. Levaquin to complete 7 day course.
+3. Albuterol q4h.
+DISCHARGE CONDITION: Stable on room air. Follow up with Pulmonology in 2 weeks."
