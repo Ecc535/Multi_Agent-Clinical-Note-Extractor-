@@ -1,0 +1,55 @@
+{
+    "45901":{
+        "note_id":"45901",
+        "type":"Discharge Summary",
+        "extracted_entities":{
+            "appointments":[
+                "Neurosurgery felt the\npatient was stable enough to f\/u as an opt for a shunt.",
+                "Discharge Disposition:\nHome With Service",
+                "Facility:\nSt Francis-eastside of 1717 Cordova Ridge Apt. 177\nPort Laura, MP 23432-5377",
+                "--Please keep your appointment to see Dr. Chapman on 04-23.",
+                "-- You will be followed by neurosurgery for placement of a\ndrain.",
+                "-- You will be followed by Neurology.",
+                "-- You will be followed by a pulmonologist.",
+                "Needs appointment with Neurology",
+                "- The patient needs to follow up with neurosurgery at\n897-778-3300 about her hydrocephalus for the possibility for a\nshunt.",
+                "Pulmonary appointment: Monday 10-25 3:15.",
+                "You will be seeing\nDr. Joel Garcia.",
+                "The location is on the 493 Vaughn Bypass Suite 705\nLake Tracyborough, OK 40375 on the Emergency Department\nBuilding of University Of Arizona Medical Center- University Campus, The.",
+                "Call 993-646-5505 if you have\nquestions.",
+                "Neurosurgery appointment: Dr. Williams with neurosurgery.",
+                "Wednesday 08-08.",
+                "1PM Wagner 3B; Call 58-964-7749\nwith questions.",
+                "Neurology - You have an appointment with Dr. Jones at 05-06 at 8:00AM.",
+                "Call 261-649-9926, The clinic is on the 1717 Cordova Ridge Apt. 177\nPort Laura, MP 23432-5377 of Emergency Department Center at University Of Arizona Medical Center- University Campus, The."
+            ],
+            "procedures":[
+                "Neurosurgery felt the\npatient was stable enough to f\/u as an opt for a shunt.",
+                "-- You will be followed by neurosurgery for placement of a\ndrain.",
+                "-- You will have pulmonary function tests.\n-- You will need to have a sleep study.",
+                "- The patient needs to follow up with neurosurgery at\n897-778-3300 about her hydrocephalus for the possibility for a\nshunt.",
+                "Sleep Study - Dr. Joel Garcia will arrange this for you.",
+                "PFTs - Call 405-268-3226 to set this up."
+            ],
+            "instructions":[
+                "8. Outpatient Lab Work\nTheophylline level on 1996-09-23; Please call level to Dr. Chapman\nat Phone: 333-335-6909  Fax: 19-993-6386"
+            ],
+            "labs":[
+                "8. Outpatient Lab Work\nTheophylline level on 1996-09-23; Please call level to Dr. Chapman\nat Phone: 333-335-6909  Fax: 19-993-6386"
+            ],
+            "diagnosis":[
+                "Acute and chronic respiratory failure",
+                "Congestive heart failure, unspecified",
+                "Obstructive hydrocephalus",
+                "Aortic valve disorders",
+                "Other emphysema",
+                "Mixed acid-base balance disorder",
+                "Other respiratory abnormalities",
+                "Unspecified sleep apnea"
+            ]
+        },
+        "id":null,
+        "text":null,
+        "spans":null
+    }
+}

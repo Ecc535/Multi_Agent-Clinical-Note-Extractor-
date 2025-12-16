@@ -1,0 +1,10 @@
+{
+  "patient_id": "45901",
+  "indicator_trends": {
+    "Respiratory": "Acute-on-chronic respiratory failure with severe respiratory acidosis (pH nadir 7.25, pCO2 93) and metabolic compensation (HCO3 35-39). Presence of hypoxia and hypercapnia leading to confusion.",
+    "Cardiovascular": "Signs of Cor Pulmonale and Pulmonary Arterial Hypertension, specifically Right Ventricular Hypertrophy and dilation. Mild Congestive Heart Failure noted.",
+    "Neurologic": "Mental status changes (confusion, decreased arousal) correlated with hypercapnia.",
+    "Infectious/Inflammatory": "Empiric treatment for exacerbation with steroids and antibiotics despite normal WBC count."
+  },
+  "overall_summary": "Patient 45901 presented with acute-on-chronic respiratory failure characterized by severe hypoxia, hypercapnia, and respiratory acidosis (pH 7.25, pCO2 93). Significant metabolic compensation (bicarbonate 35-39) suggests a chronic underlying etiology. The clinical picture of confusion, lethargy, and dyspnea supports a diagnosis of hypoventilation syndrome or severe Obstructive Sleep Apnea, superimposed on existing emphysematous changes and Rheumatoid Arthritis. Imaging confirmed sequelae of chronic pulmonary issues, specifically Pulmonary Arterial Hypertension with Right Ventricular Hypertrophy and dilation (Cor Pulmonale). Management included aggressive respiratory support via BiPAP and continuous oxygen, alongside diuresis for mild congestive heart failure. The patient also received Solu-Medrol and broad-spectrum antibiotics (Levofloxacin, Azithromycin) to rule out or treat infectious triggers for the exacerbation. Monitoring of NIFs and mental status remained critical due to CO2 narcosis."
+}

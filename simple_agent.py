@@ -26,6 +26,9 @@ from requests import session
 
 from evaluation_utils import evaluate
 
+from google.adk.runners import InMemoryRunner
+from search_fhir_terminology import terminology_search as search_fhir_terminology
+
 
 # Load environment variables from the .env file
 load_dotenv()
@@ -57,8 +60,8 @@ def load_test_data(csv_path, json_path):
         for index, row in df.iterrows():
             # Construct a consistent Note ID. 
             # Strategy: Use SubjectID_RowID to ensure uniqueness
-            note_id = f"{row['SUBJECT_ID']}_Note_{row['ROW_ID']}"
-            NOTE_DB[note_id] = row['TEXT']
+            note_id = str(row["SUBJECT_ID"])
+            NOTE_DB[note_id] = row["TEXT"]
             
             # Map Subject ID to list of notes for the Orchestrator
             if row['SUBJECT_ID'] not in PATIENT_INDEX:
@@ -130,13 +133,13 @@ print(" OrchestratorAgent ready.")
 worker_agent = Agent(
     name="WorkerAgent",
     model=Gemini(
-        model="gemini-3-pro-preview",
+        model="gemini-2.5-pro",
         retry_options=retry_config
     ),
     instruction="""
     You are the Worker Agent.
     Your task:
-    1. Read the clinical note corresponding to `note_id`.
+    1. Read the clinical note provided in the input field "text". It contains the full raw clinical note.
     2. Extract structured key clinical information (symptoms, labs, treatments, events).
     3. If `feedback` is provided, refine your extraction accordingly.
     Return JSON only:
@@ -152,6 +155,108 @@ worker_agent = Agent(
 )
 print(" WorkerAgent created.")
 
+# worker_agent = Agent(
+#     name="WorkerAgent",
+#     model=Gemini(
+#         model="gemini-2.5-flash-lite",
+#         retry_options=retry_config,
+#         api_key = GOOGLE_API_KEY
+#     ),
+#     instruction="""
+# You are the Worker Agent.
+
+# You MUST use the ReAct pattern:
+# 1. Thought: describe what you need to do
+# 2. Action: call one of the provided tools
+# 3. Observation: you will receive tool output
+# 4. Answer: produce the final structured JSON output
+
+# Your job is to process one or multiple clinical notes and extract structured clinical indicators.
+
+# BUT IMPORTANT:
+# When identifying diagnoses, conditions, symptoms, medications, or lab analytes,
+# you MUST normalize them using the Cloud Healthcare API tool `terminology_search`.
+# Use 'http://snomed.info/sct' for diagnoses, conditions, and symptoms.
+# Use 'http://www.nlm.nih.gov/research/umls/rxnorm' for medications.
+# Use 'http://loinc.org' for lab analytes.
+# Never guess medical codes. Always perform a tool search.
+
+# =========================
+# Tasks:
+# For each clinical note:
+# 1. Extract key indicators:
+#    - Vital signs (BP, HR, RR, SpO2, temperature)
+#    - Labs (Hb, WBC, platelets, glucose, Cr, Na/K, etc.)
+#    - Diagnoses and symptoms (normalized via SNOMED using ReAct + tool calls)
+#    - Treatments / medications (normalize via RxNorm)
+# 2. Always perform reasoning step-by-step using ReAct.
+# 3. Then output the final structured data.
+
+# =========================
+# Output Schema:
+# Return a JSON list. Example format:
+
+# [
+#   {
+#     "note_id": "",
+#     "visit_date": "",
+#     "indicators": {
+#         "vitals": {...},
+#         "labs": {...}
+#     },
+#     "diagnosis": [
+#        {
+#          "text": "",
+#          "normalized": {
+#             "code": "",
+#             "system": "",
+#             "display": ""
+#          }
+#        }
+#     ],
+#     "treatment": [
+#        {
+#          "text": "",
+#          "normalized": {
+#             "code": "",
+#             "system": "",
+#             "display": ""
+#          }
+#        }
+#     ],
+#     "summary": ""
+#   }
+# ]
+# =========================
+
+# You MUST use tools with explicit ReAct steps.
+# Do NOT output thoughts in the final answer.
+# """,
+#     output_key="note_extractions",
+#     tools = [FunctionTool(search_fhir_terminology)]
+
+# )
+# # run worker agent
+# app = App(name="WorkerAgentApp", root_agent=worker_agent)
+
+# # Runner
+# test_runner = InMemoryRunner(agent=app.root_agent)
+
+
+# # Async execution
+# async def main():
+#     response = await test_runner.run_debug(
+#         "test notes..., please extract structured clinical indicators as per the instructions."
+#     )
+#     final_answers = []
+#     for event in response:
+#         if event.type == "Answer":
+#             final_answers.append(event.content)
+
+#     # Print nicely
+#     print(json.dumps(final_answers, indent=2))
+
+# asyncio.run(main())
 
 # ----------------------------------------------------
 #  EXTRACTION LOGIC (ITERATIVE)
@@ -244,6 +349,7 @@ async def execute_worker_with_feedback_loop(note_id: str):
         # We pass feedback into the prompt context via the dictionary
         agent_input = {
             "note_id": note_id, 
+            "text": raw_text,
             "feedback": current_feedback
         }
         
@@ -379,6 +485,15 @@ async def run_clinical_pipeline(patient_id: str):
         print("🔴 Pipeline stopped: No approved extractions available.")
         return
 
+    # Save the collected approved extractions to a file
+    try:
+        output_filename = f"/Users/yixinshen/Agent/approved_extractions_{patient_id}.json"
+        with open(output_filename, 'w', encoding='utf-8') as f:
+            json.dump(collected_extractions, f, indent=4, ensure_ascii=False)
+        print(f"💾 Approved worker outputs saved to: {output_filename}")
+    except Exception as e:
+        print(f"   -> Error saving extractions: {e}")
+
     # ==========================================
     # PHASE 3: SYNTHESIZER (Summary)
     # ==========================================
@@ -401,10 +516,11 @@ async def run_clinical_pipeline(patient_id: str):
 async def main():
     await run_clinical_pipeline(test_patient_id)
 
+
 if __name__ == "__main__":
     files_loaded = load_test_data(
-        "/Users/yixinshen/Agent/test_dataset.csv",
-        "/Users/yixinshen/Agent/test_truth.json"
+        "/Users/yixinshen/Agent/single_record.csv",
+        "/Users/yixinshen/Agent/single_truth.json"
     )
 
     if files_loaded:
@@ -413,4 +529,3 @@ if __name__ == "__main__":
 
         # run the async main
         asyncio.run(main())
-
