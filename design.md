@@ -7,7 +7,10 @@ This project implements a **LangGraph-based clinical note extraction agent syste
 The system is designed as a **multi-node, stateful agent workflow** with shared orchestration, caching, terminology normalization, validation, and human-in-the-loop feedback. Each node is responsible for a clearly scoped task and communicates via a shared agent state managed by LangGraph.
 
 ## Design Diagram Overview
-![Design Diagram](Design_diagram.png)
+<p align="center">
+  <img src="Design_Diagram.png" width="1600">
+</p>
+
 ## LangGraph Orchestration Layer
 
 The system is orchestrated using **LangGraph**, which manages:
