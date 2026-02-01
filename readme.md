@@ -7,7 +7,9 @@ Unstructured clinical notes (e.g., discharge summaries) frequently describe **di
 <p align="center">
   <img src="Design_Diagram.png" width="1600">
 </p>
+
 The system is implemented using the **LangGraph** framework and processes unstructured discharge notes from a subset of the **publicly available CLIP dataset**, focusing on patients with **multiple hospital visits**.
+
 ---
 ## Repository Structure
 - extractor/ # LangGraph extractor node
