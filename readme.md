@@ -47,7 +47,7 @@ The system is implemented using the **LangGraph** framework and processes unstru
 
 ### High-Level Steps
 1. Build and start PostgreSQL using Docker
-2. Launch the FHIR terminology server via Maven
+2. Launch the FHIR terminology server via Maven (You can clone FHIR healthcare repo without tuning parameters: https://github.com/Ecc535/FHIR_HealthStandards)
 3. Load SNOMED CT, RxNorm, and ICD-9 resources
 4. Start the FastAPI service
 5. Configure Vertex AI and OpenAI credentials
