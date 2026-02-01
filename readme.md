@@ -4,7 +4,9 @@
 This repository contains a **practical clinical note extraction agent system** designed to surface clinically meaningful information that is often missing or underrepresented in structured EHR fields.
 
 Unstructured clinical notes (e.g., discharge summaries) frequently describe **disease progression**, **pre-/post-surgical symptoms**, and **quantitative clinical observations** that are not fully captured in standard EHR records. This project focuses on extracting those signals in a **standards-aware** and **scalable** way.
-
+<p align="center">
+  <img src="Design_Diagram.png" width="1600">
+</p>
 The system is implemented using the **LangGraph** framework and processes unstructured discharge notes from a subset of the **publicly available CLIP dataset**, focusing on patients with **multiple hospital visits**.
 ---
 ## Repository Structure
